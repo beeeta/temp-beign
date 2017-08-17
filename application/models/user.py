@@ -1,4 +1,6 @@
 from flask_login import UserMixin
 
 class User(UserMixin):
-    pass
+
+    def get_id(self):
+        return 'test'
