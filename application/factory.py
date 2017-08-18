@@ -1,12 +1,19 @@
-from .bp.shouyang import bp
-from .dec import login_manager
+from .bp.shouyang import bp as sy
+from .bp.auth import bp as auth
+from .utils import login_manager
+from .models import db
 
 from flask import Flask
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY']='FFFFF'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost:5432/begin'
+
     login_manager.init_app(app)
-    app.register_blueprint(bp)
+    db.init_app(app)
+
+    app.register_blueprint(auth,url_prefix='/auth')
+    app.register_blueprint(sy,url_prefix='/sy')
     return app
 

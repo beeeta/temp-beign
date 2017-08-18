@@ -1,20 +1,13 @@
-from flask import Blueprint
+from flask import Blueprint,request,url_for,redirect,json,abort
 from flask_login import login_required,login_user
 
+from ..models import db
 from ..models.user import User
 
 bp = Blueprint('shouyang',__name__)
-user = User()
-
-# login action
-@bp.route("/login")
-def login():
-    login_user(user)
-    print('login success')
-    return 'login success'
 
 # get info
-@bp.route("/ha")
+@bp.route("/")
 @login_required
 def ha():
     return 'hello'
