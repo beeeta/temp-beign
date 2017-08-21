@@ -6,7 +6,7 @@
 </head>
 <body>
 <form method="post" action="{{ url_for('auth.login') }}">
-    {{ form.csrf_token() }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <input name="username" type="text"/>
     <input name="password" type="password"/>
     <input name="Submit" type="submit">

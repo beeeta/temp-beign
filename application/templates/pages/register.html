@@ -6,8 +6,9 @@
 </head>
 <body>
 <form method="post" action="{{ url_for('auth.register') }}">
-    {{ form.csrf_token() }}
+    <input name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
     <input name="username" type="text"/>
+    <input name="email" type="text"/>
     <input name="password" type="password"/>
     <input name="rept_password" type="password"/>
     <input name="Submit" type="submit">

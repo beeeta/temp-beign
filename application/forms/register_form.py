@@ -6,4 +6,5 @@ class RegisterForm(FlaskForm):
     username = StringField('username', validators=[DataRequired()])
     password = StringField('password', validators=[DataRequired()])
     rept_password = StringField('rept_password', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired()])
 

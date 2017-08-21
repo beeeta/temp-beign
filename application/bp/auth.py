@@ -15,11 +15,11 @@ login_manager = LoginManager()
 def login():
     if request.method == 'GET':
         form = LoginForm()
-        return render_template('pages/login.html',form=form)
+        return render_template('pages/login.html')
     else:
         form = LoginForm()
         if form.validate_on_submit():
-            user = User.query.filter_by(username=form['username']).first()
+            user = User.query.filter_by(username=form.username.data).first()
             if user:
                 # 这里的密码如何校验？？
                 login_user(user)
@@ -37,16 +37,14 @@ def logout():
 @bp.route("/register",methods=['POST','GET'])
 def register():
     if request.method == 'GET':
-        regForm = RegisterForm()
-        return render_template('pages/register.html',form=regForm)
+        return render_template('pages/register.html')
     else:
         reg_form = RegisterForm()
         if reg_form.validate_on_submit():
-            user = User(reg_form['username'],reg_form['email'])
+            user = User(reg_form.username.data,reg_form.password.data,reg_form.email.data)
             db.session.add(user)
-            login_user(user)
             db.session.commit()
-            return make_response(render_template('pages/index.html'),200)
+            return redirect(url_for('auth.login'))
         return redirect(url_for('auth.register'))
 
 @login_manager.user_loader
